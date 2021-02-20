@@ -36,13 +36,7 @@ class AdminLogoHackViewEventListener extends BcViewEventListener {
 		$View = $event->subject();
 
 		$Model = ClassRegistry::init('AdminLogoHack.AdminLogoHack');
-		$row = $Model->find(
-			'first',
-				[
-					'order' => ['id DESC'],
-					'fields' => ['file']
-				]
-			);
+		$row = $Model->find('first');
 		$value = $row['AdminLogoHack']['file'];
 
 		$content = $View->Blocks->get('content');
@@ -50,7 +44,7 @@ class AdminLogoHackViewEventListener extends BcViewEventListener {
 		/**
 		 * データベースからファイル名を取得して HTML タグを生成
 		 */
-		$filePath = $View->BcUpload->fileLink('AdminLogoHack.AdminLogoHack.file', ['imgsize' => '', 'value' => $value, 'link' => false]);
+		$html = $View->BcUpload->fileLink('AdminLogoHack.AdminLogoHack.file', ['imgsize' => '', 'value' => $value, 'link' => false]);
 
 		/**
 		 * 管理画面のテーマ判定
@@ -65,7 +59,7 @@ class AdminLogoHackViewEventListener extends BcViewEventListener {
 		/**
 		 * ロゴ画像が設定されていれば置換
 		 */
-		preg_match('/img src="(.+?)"/', $filePath, $replace);
+		preg_match('/img src="(.+?)"/', $html, $replace);
 		if (!empty($search[1]) && !empty($replace[1])) {
 			$content = str_replace($search[1], $replace[1], $content);
 		}
