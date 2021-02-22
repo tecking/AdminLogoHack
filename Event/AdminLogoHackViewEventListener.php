@@ -49,7 +49,7 @@ class AdminLogoHackViewEventListener extends BcViewEventListener {
 		/**
 		 * 管理画面のテーマ判定
 		 */
-		if ( $View->viewVars['siteConfig']['admin_theme'] === 'admin-third' ) {
+		if ($View->viewVars['siteConfig']['admin_theme'] === 'admin-third') {
 			preg_match('/img src="(.+?)"/', $View->BcBaser->getImg('admin/logo_large.png'), $search);
 		}
 		else {
