@@ -30,7 +30,9 @@ class AdminLogoHackViewEventListener extends BcViewEventListener {
 		 * 管理画面でなければ処理しない
 		 */
 		if (!BcUtil::isAdminSystem()) {
+
 			return;
+
 		}
 
 		$View = $event->subject();
@@ -50,10 +52,13 @@ class AdminLogoHackViewEventListener extends BcViewEventListener {
 		 * 管理画面のテーマ判定
 		 */
 		if ($View->viewVars['siteConfig']['admin_theme'] === 'admin-third') {
+
 			preg_match('/img src="(.+?)"/', $View->BcBaser->getImg('admin/logo_large.png'), $search);
-		}
-		else {
+
+		} else {
+
 			preg_match('/img src="(.+?)"/', $View->BcBaser->getImg('/img/admin/logo_header.png'), $search);
+
 		}
 
 		/**
@@ -61,10 +66,13 @@ class AdminLogoHackViewEventListener extends BcViewEventListener {
 		 */
 		preg_match('/img src="(.+?)"/', $html, $replace);
 		if (!empty($search[1]) && !empty($replace[1])) {
+
 			$content = str_replace($search[1], $replace[1], $content);
+
 		}
 
 		$View->Blocks->set('content', $content);
 
 	}
+	
 }

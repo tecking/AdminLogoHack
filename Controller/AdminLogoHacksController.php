@@ -85,16 +85,21 @@ class AdminLogoHacksController extends AppController {
 		 * ファイルが送信されていれば、データベースを更新
 		 */
 		if (!$this->data) {
+
 			$this->data = $this->AdminLogoHack->find('first');
-		}
-		else {
+
+		} else {
+
 			$this->AdminLogoHack->id = $this->data['AdminLogoHack']['id'];
 			$pathInfo = pathinfo($this->data['AdminLogoHack']['file']['name']);
 			if ($pathInfo['filename'] !== '') {
+
 				$isImg = in_array($pathInfo['extension'], $this->imgExts);
-			}
-			else {
+
+			} else {
+
 				$isImg = true;
+
 			}
 
 			/**
@@ -102,15 +107,21 @@ class AdminLogoHacksController extends AppController {
 			 * 画像ファイル以外のときはエラーメッセージ表示
 			 */
 			if ($isImg) {
+
 				if ($this->AdminLogoHack->save($this->data)) {
+
 					$this->BcMessage->setSuccess('ログイン画面の画像を設定しました。');
-				}
-				else {
+
+				} else {
+
 					$this->BcMessage->setError('何らかの理由で保存できませんでした。');
-				}	
-			}
-			else {
+
+				}
+
+			} else {
+
 				$this->BcMessage->setError('画像以外のファイルは設定できません。');
+				
 			}
 
 			$this->redirect([
